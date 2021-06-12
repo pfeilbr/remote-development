@@ -4,19 +4,18 @@ import {PolicyStatement} from '@aws-cdk/aws-iam'
 import events = require('@aws-cdk/aws-events');
 import targets = require('@aws-cdk/aws-events-targets');
 import lambda = require('@aws-cdk/aws-lambda');
-import fs = require('fs');
-import path = require('path')
-
+import { PythonFunction } from "@aws-cdk/aws-lambda-python";
 
 export class RemoteDevelopmentStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
 
-    const lambdaFn = new lambda.Function(this, 'Singleton', {
-      code: new lambda.InlineCode(fs.readFileSync(path.join(__dirname, 'lambda', 'dev-env-schedule', 'lambda-handler.py'), { encoding: 'utf-8' })),
-      handler: 'index.main',
+    const lambdaFn = new PythonFunction(this, 'ScheduledDevelopmentEnvironment', {
+      entry: 'src/lambda/dev-env-schedule', // required
+      index: 'lambda-handler.py', // optional, defaults to 'index.py'
+      handler: 'main', // optional, defaults to 'handler'
       timeout: Duration.seconds(300),
-      runtime: lambda.Runtime.PYTHON_3_8,
+      runtime: lambda.Runtime.PYTHON_3_8, // optional, defaults to lambda.Runtime.PYTHON_3_7
     });
 
     lambdaFn.addToRolePolicy(new PolicyStatement({

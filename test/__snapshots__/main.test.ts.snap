@@ -2,6 +2,20 @@
 
 exports[`Snapshot 1`] = `
 Object {
+  "Parameters": Object {
+    "AssetParameters22b60b6fc31c4d59bc5d0fa5bd77d70fd627faadc1fb82dc3695543ad1c4c756ArtifactHash505AB0BD": Object {
+      "Description": "Artifact hash for asset \\"22b60b6fc31c4d59bc5d0fa5bd77d70fd627faadc1fb82dc3695543ad1c4c756\\"",
+      "Type": "String",
+    },
+    "AssetParameters22b60b6fc31c4d59bc5d0fa5bd77d70fd627faadc1fb82dc3695543ad1c4c756S3Bucket1713A557": Object {
+      "Description": "S3 bucket for asset \\"22b60b6fc31c4d59bc5d0fa5bd77d70fd627faadc1fb82dc3695543ad1c4c756\\"",
+      "Type": "String",
+    },
+    "AssetParameters22b60b6fc31c4d59bc5d0fa5bd77d70fd627faadc1fb82dc3695543ad1c4c756S3VersionKeyE15E859A": Object {
+      "Description": "S3 key for asset version \\"22b60b6fc31c4d59bc5d0fa5bd77d70fd627faadc1fb82dc3695543ad1c4c756\\"",
+      "Type": "String",
+    },
+  },
   "Resources": Object {
     "Rule4C995B7F": Object {
       "Properties": Object {
@@ -11,7 +25,7 @@ Object {
           Object {
             "Arn": Object {
               "Fn::GetAtt": Array [
-                "Singleton8C7B99F3",
+                "ScheduledDevelopmentEnvironment82C14BD1",
                 "Arn",
               ],
             },
@@ -21,12 +35,12 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "RuleAllowEventRuletestSingletonEBBCDB00DAA3B746": Object {
+    "RuleAllowEventRuletestScheduledDevelopmentEnvironment9EB6D177C6E90BC9": Object {
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
         "FunctionName": Object {
           "Fn::GetAtt": Array [
-            "Singleton8C7B99F3",
+            "ScheduledDevelopmentEnvironment82C14BD1",
             "Arn",
           ],
         },
@@ -40,29 +54,54 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "Singleton8C7B99F3": Object {
+    "ScheduledDevelopmentEnvironment82C14BD1": Object {
       "DependsOn": Array [
-        "SingletonServiceRoleDefaultPolicy7525C238",
-        "SingletonServiceRoleDDD815CD",
+        "ScheduledDevelopmentEnvironmentServiceRoleDefaultPolicyBB6B7A7A",
+        "ScheduledDevelopmentEnvironmentServiceRole2245AF2F",
       ],
       "Properties": Object {
         "Code": Object {
-          "ZipFile": "import boto3
-
-region = \\"us-east-1\\"
-instances = [\\"i-06c49f207e012e481\\"]
-ec2 = boto3.client(\\"ec2\\", region_name=region)
-
-
-def main(event, context):
-    ec2.stop_instances(InstanceIds=instances)
-    print(\\"stopped your instances: \\" + str(instances))
-",
+          "S3Bucket": Object {
+            "Ref": "AssetParameters22b60b6fc31c4d59bc5d0fa5bd77d70fd627faadc1fb82dc3695543ad1c4c756S3Bucket1713A557",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters22b60b6fc31c4d59bc5d0fa5bd77d70fd627faadc1fb82dc3695543ad1c4c756S3VersionKeyE15E859A",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters22b60b6fc31c4d59bc5d0fa5bd77d70fd627faadc1fb82dc3695543ad1c4c756S3VersionKeyE15E859A",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
         },
-        "Handler": "index.main",
+        "Handler": "lambda-handler.main",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "SingletonServiceRoleDDD815CD",
+            "ScheduledDevelopmentEnvironmentServiceRole2245AF2F",
             "Arn",
           ],
         },
@@ -71,7 +110,7 @@ def main(event, context):
       },
       "Type": "AWS::Lambda::Function",
     },
-    "SingletonServiceRoleDDD815CD": Object {
+    "ScheduledDevelopmentEnvironmentServiceRole2245AF2F": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -102,7 +141,7 @@ def main(event, context):
       },
       "Type": "AWS::IAM::Role",
     },
-    "SingletonServiceRoleDefaultPolicy7525C238": Object {
+    "ScheduledDevelopmentEnvironmentServiceRoleDefaultPolicyBB6B7A7A": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -117,10 +156,10 @@ def main(event, context):
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "SingletonServiceRoleDefaultPolicy7525C238",
+        "PolicyName": "ScheduledDevelopmentEnvironmentServiceRoleDefaultPolicyBB6B7A7A",
         "Roles": Array [
           Object {
-            "Ref": "SingletonServiceRoleDDD815CD",
+            "Ref": "ScheduledDevelopmentEnvironmentServiceRole2245AF2F",
           },
         ],
       },
