@@ -9,9 +9,9 @@ const project = new AwsCdkTypeScriptApp({
     '@aws-cdk/aws-events',
     '@aws-cdk/aws-events-targets',
     '@aws-cdk/aws-lambda',
-    '@aws-cdk/aws-lambda-python'
+    '@aws-cdk/aws-lambda-python',
 
-  ],        /* Which AWS CDK modules (those that start with "@aws-cdk/") this app uses. */
+  ], /* Which AWS CDK modules (those that start with "@aws-cdk/") this app uses. */
   // deps: [],                          /* Runtime dependencies of this module. */
   // description: undefined,            /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],                       /* Build dependencies for this module. */

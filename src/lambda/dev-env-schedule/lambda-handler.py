@@ -1,10 +1,11 @@
 import boto3
+import os
+import json
 
-region = "us-east-1"
-instances = ["i-06c49f207e012e481"]
+region = os.environ.get("REGION")
+instances = json.loads(os.environ.get("INSTANCE_IDS"))
 ec2 = boto3.client("ec2", region_name=region)
 
-
-def main(event, context):
+def instance_operation(event, context):
     ec2.stop_instances(InstanceIds=instances)
     print("stopped your instances: " + str(instances))
