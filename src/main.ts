@@ -29,6 +29,8 @@ export class RemoteDevelopmentStack extends Stack {
       },
     });
 
+    notifyTopic.grantPublish(lambdaFn);
+
     lambdaFn.addToRolePolicy(new PolicyStatement({
       resources: ['*'],
       actions: ['ec2:StartInstances', 'ec2:StopInstances', 'ec2:Describe*', 'ec2:List*', 'ec2:Get*'],

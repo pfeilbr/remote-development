@@ -16,15 +16,15 @@ def instance_operation(event, context):
     for instance_id in instance_ids:
         if is_instance_running(instance_id):
             ec2.stop_instances(InstanceIds=[instance_id])
-            print("{} instance (instance_id={})".format(operation,instance_id) )
+            print("{} instance (instance_id={})".format('stop_instances',instance_id) )
             notify(event, context)
     
 def notify(event, context):
     topic_arn = region = os.environ.get("NOTIFY_TOPIC_ARN")
     sns.publish(
         TopicArn=topic_arn,
-        Subject="stopped ec2 instance(s) ({})".format(str(instances)),
+        Subject="stopped ec2 instance(s) ({})".format(str(instance_ids)),
         Message="stopped ec2 instance(s) with instance id(s) of {}".format(
-            str(instances)
+            str(instance_ids)
         ),
     )
