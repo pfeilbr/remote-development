@@ -20,8 +20,15 @@ npm run test:watch
 # update jest snapshots
 npm run test:update
 
+# test lambda(s)
+pushd src/lambda/dev-env-schedule
+pipenv run pytest
+popd
+
+
 # deploy
 npm run deploy
+./node_modules/.bin/cdk deploy --outputs-file ./cdk-outputs.json
 
 # remove
 npm run destroy

@@ -2,21 +2,75 @@
 
 exports[`Snapshot 1`] = `
 Object {
+  "Outputs": Object {
+    "CronRuleArn": Object {
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "Rule4C995B7F",
+          "Arn",
+        ],
+      },
+    },
+    "CronRuleName": Object {
+      "Value": Object {
+        "Ref": "Rule4C995B7F",
+      },
+    },
+    "InstanceOperationLambdaFunctionArn": Object {
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "ScheduledDevelopmentEnvironment82C14BD1",
+          "Arn",
+        ],
+      },
+    },
+    "InstanceOperationLambdaFunctionName": Object {
+      "Value": Object {
+        "Ref": "ScheduledDevelopmentEnvironment82C14BD1",
+      },
+    },
+    "NotifyTopicArn": Object {
+      "Value": Object {
+        "Ref": "NotifyTopic5FFA0016",
+      },
+    },
+    "NotifyTopicName": Object {
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "NotifyTopic5FFA0016",
+          "TopicName",
+        ],
+      },
+    },
+  },
   "Parameters": Object {
-    "AssetParameters4117203e1876c3f8205ad420b086141b923c8fafcbc845c5f15360672de41f99ArtifactHash23AB32FB": Object {
-      "Description": "Artifact hash for asset \\"4117203e1876c3f8205ad420b086141b923c8fafcbc845c5f15360672de41f99\\"",
+    "AssetParameters8e1bca89ab58b4479d8c4c27a111c33695c7352ff15cb22f5d17b9375b291beeArtifactHashDEAE7DCE": Object {
+      "Description": "Artifact hash for asset \\"8e1bca89ab58b4479d8c4c27a111c33695c7352ff15cb22f5d17b9375b291bee\\"",
       "Type": "String",
     },
-    "AssetParameters4117203e1876c3f8205ad420b086141b923c8fafcbc845c5f15360672de41f99S3BucketB7140C90": Object {
-      "Description": "S3 bucket for asset \\"4117203e1876c3f8205ad420b086141b923c8fafcbc845c5f15360672de41f99\\"",
+    "AssetParameters8e1bca89ab58b4479d8c4c27a111c33695c7352ff15cb22f5d17b9375b291beeS3BucketF2C80050": Object {
+      "Description": "S3 bucket for asset \\"8e1bca89ab58b4479d8c4c27a111c33695c7352ff15cb22f5d17b9375b291bee\\"",
       "Type": "String",
     },
-    "AssetParameters4117203e1876c3f8205ad420b086141b923c8fafcbc845c5f15360672de41f99S3VersionKey7CFB200A": Object {
-      "Description": "S3 key for asset version \\"4117203e1876c3f8205ad420b086141b923c8fafcbc845c5f15360672de41f99\\"",
+    "AssetParameters8e1bca89ab58b4479d8c4c27a111c33695c7352ff15cb22f5d17b9375b291beeS3VersionKeyF3F7BCED": Object {
+      "Description": "S3 key for asset version \\"8e1bca89ab58b4479d8c4c27a111c33695c7352ff15cb22f5d17b9375b291bee\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
+    "NotifyTopic5FFA0016": Object {
+      "Type": "AWS::SNS::Topic",
+    },
+    "NotifyTopicbrianpfeilgmailcom92A1199C": Object {
+      "Properties": Object {
+        "Endpoint": "brian.pfeil@gmail.com",
+        "Protocol": "email",
+        "TopicArn": Object {
+          "Ref": "NotifyTopic5FFA0016",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
     "Rule4C995B7F": Object {
       "Properties": Object {
         "ScheduleExpression": "cron(0 4 * * ? *)",
@@ -62,7 +116,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters4117203e1876c3f8205ad420b086141b923c8fafcbc845c5f15360672de41f99S3BucketB7140C90",
+            "Ref": "AssetParameters8e1bca89ab58b4479d8c4c27a111c33695c7352ff15cb22f5d17b9375b291beeS3BucketF2C80050",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -75,7 +129,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters4117203e1876c3f8205ad420b086141b923c8fafcbc845c5f15360672de41f99S3VersionKey7CFB200A",
+                          "Ref": "AssetParameters8e1bca89ab58b4479d8c4c27a111c33695c7352ff15cb22f5d17b9375b291beeS3VersionKeyF3F7BCED",
                         },
                       ],
                     },
@@ -88,7 +142,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters4117203e1876c3f8205ad420b086141b923c8fafcbc845c5f15360672de41f99S3VersionKey7CFB200A",
+                          "Ref": "AssetParameters8e1bca89ab58b4479d8c4c27a111c33695c7352ff15cb22f5d17b9375b291beeS3VersionKeyF3F7BCED",
                         },
                       ],
                     },
@@ -101,6 +155,9 @@ Object {
         "Environment": Object {
           "Variables": Object {
             "INSTANCE_IDS": "[\\"i-06c49f207e012e481\\"]",
+            "NOTIFY_TOPIC_ARN": Object {
+              "Ref": "NotifyTopic5FFA0016",
+            },
             "REGION": "us-east-1",
           },
         },
@@ -155,6 +212,9 @@ Object {
               "Action": Array [
                 "ec2:StartInstances",
                 "ec2:StopInstances",
+                "ec2:Describe*",
+                "ec2:List*",
+                "ec2:Get*",
               ],
               "Effect": "Allow",
               "Resource": "*",

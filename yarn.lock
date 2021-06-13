@@ -544,7 +544,7 @@
     "@aws-cdk/core" "1.108.1"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-sns-subscriptions@1.108.1":
+"@aws-cdk/aws-sns-subscriptions@1.108.1", "@aws-cdk/aws-sns-subscriptions@^1.95.2":
   version "1.108.1"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-sns-subscriptions/-/aws-sns-subscriptions-1.108.1.tgz#9948556013645f602273be6948c1ac9aa3673b93"
   integrity sha512-QM+2UYt4b+rpVDHsz7xXGc/wvfaz6nyXjwp87103nyjVKxrN5rS8HO2BVNbM9kgQNq32x5tZAoDAwuLezVCJ3w==
@@ -556,7 +556,7 @@
     "@aws-cdk/core" "1.108.1"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-sns@1.108.1":
+"@aws-cdk/aws-sns@1.108.1", "@aws-cdk/aws-sns@^1.95.2":
   version "1.108.1"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-sns/-/aws-sns-1.108.1.tgz#ebfc7d1d68ff7ea3ccd5c29e59f28e5539bdaed7"
   integrity sha512-GbAxUakZWOB1zSNdunmYcQ0C9UVxCRkEtYyb695Vo6pvi9vHJp8MsaVYZzaIKz8/+M9FWK+n46hnEJl5t/GYNA==

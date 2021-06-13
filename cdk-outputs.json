@@ -1,0 +1,10 @@
+{
+  "remote-development-stack": {
+    "CronRuleArn": "arn:aws:events:us-east-1:529276214230:rule/remote-development-stack-Rule4C995B7F-10XUR48YVSQL6",
+    "NotifyTopicArn": "arn:aws:sns:us-east-1:529276214230:remote-development-stack-NotifyTopic5FFA0016-1DPZEG099XQTZ",
+    "InstanceOperationLambdaFunctionName": "remote-development-stack-ScheduledDevelopmentEnvir-1A95Hz75B3z4",
+    "InstanceOperationLambdaFunctionArn": "arn:aws:lambda:us-east-1:529276214230:function:remote-development-stack-ScheduledDevelopmentEnvir-1A95Hz75B3z4",
+    "NotifyTopicName": "remote-development-stack-NotifyTopic5FFA0016-1DPZEG099XQTZ",
+    "CronRuleName": "remote-development-stack-Rule4C995B7F-10XUR48YVSQL6"
+  }
+}

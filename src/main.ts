@@ -4,11 +4,17 @@ import * as targets from '@aws-cdk/aws-events-targets';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
 import { PythonFunction } from '@aws-cdk/aws-lambda-python';
-import { App, Construct, Stack, StackProps, Duration } from '@aws-cdk/core';
+import * as sns from '@aws-cdk/aws-sns';
+import * as subscriptions from '@aws-cdk/aws-sns-subscriptions';
+import { App, Construct, Stack, StackProps, Duration, CfnOutput } from '@aws-cdk/core';
 
 export class RemoteDevelopmentStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
+
+    const notifyTopic = new sns.Topic(this, 'NotifyTopic');
+    notifyTopic.addSubscription(new subscriptions.EmailSubscription('brian.pfeil@gmail.com'));
+
 
     const lambdaFn = new PythonFunction(this, 'ScheduledDevelopmentEnvironment', {
       entry: 'src/lambda/dev-env-schedule', // required
@@ -19,12 +25,13 @@ export class RemoteDevelopmentStack extends Stack {
       environment: {
         REGION: 'us-east-1',
         INSTANCE_IDS: '["i-06c49f207e012e481"]',
+        NOTIFY_TOPIC_ARN: notifyTopic.topicArn,
       },
     });
 
     lambdaFn.addToRolePolicy(new PolicyStatement({
       resources: ['*'],
-      actions: ['ec2:StartInstances', 'ec2:StopInstances'],
+      actions: ['ec2:StartInstances', 'ec2:StopInstances', 'ec2:Describe*', 'ec2:List*', 'ec2:Get*'],
     }));
 
     // Run every day at 6PM UTC
@@ -34,6 +41,13 @@ export class RemoteDevelopmentStack extends Stack {
     });
 
     rule.addTarget(new targets.LambdaFunction(lambdaFn));
+
+    new CfnOutput(this, 'InstanceOperationLambdaFunctionName', { value: lambdaFn.functionName });
+    new CfnOutput(this, 'InstanceOperationLambdaFunctionArn', { value: lambdaFn.functionArn });
+    new CfnOutput(this, 'CronRuleName', { value: rule.ruleName });
+    new CfnOutput(this, 'CronRuleArn', { value: rule.ruleArn });
+    new CfnOutput(this, 'NotifyTopicName', { value: notifyTopic.topicName });
+    new CfnOutput(this, 'NotifyTopicArn', { value: notifyTopic.topicArn });
   }
 }
 
