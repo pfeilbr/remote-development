@@ -12,7 +12,7 @@ export class RemoteDevelopmentStack extends Stack {
 
     const lambdaFn = new PythonFunction(this, 'ScheduledDevelopmentEnvironment', {
       entry: 'src/lambda/dev-env-schedule', // required
-      index: 'lambda-handler.py', // optional, defaults to 'index.py'
+      index: 'main.py', // optional, defaults to 'index.py'
       handler: 'instance_operation', // optional, defaults to 'handler'
       timeout: Duration.seconds(300),
       runtime: lambda.Runtime.PYTHON_3_8, // optional, defaults to lambda.Runtime.PYTHON_3_7
