@@ -6,11 +6,11 @@ import * as lambda from '@aws-cdk/aws-lambda';
 import { PythonFunction } from '@aws-cdk/aws-lambda-python';
 import * as sns from '@aws-cdk/aws-sns';
 import * as subscriptions from '@aws-cdk/aws-sns-subscriptions';
-import { App, Construct, Stack, StackProps, Duration, CfnOutput } from '@aws-cdk/core';
+import { App, Construct, Stack, Duration, CfnOutput } from '@aws-cdk/core';
 
-export class RemoteDevelopmentStack extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps = {}) {
-    super(scope, id, props);
+export class RemoteDevelopmentConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
 
     // cdk synth --context key1=value1 --context key2=value2 MyStack
     // this.node.tryGetContext('vpcid');
@@ -62,5 +62,6 @@ const env = {
 };
 
 const app = new App();
-new RemoteDevelopmentStack(app, 'remote-development-stack', { env });
+const stack = new Stack(app, 'remote-development-stack', { env });
+new RemoteDevelopmentConstruct(stack, 'remote-development-construct');
 app.synth();
