@@ -12,6 +12,9 @@ export class RemoteDevelopmentStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
 
+    // cdk synth --context key1=value1 --context key2=value2 MyStack
+    // this.node.tryGetContext('vpcid');
+
     const notifyTopic = new sns.Topic(this, 'NotifyTopic');
     notifyTopic.addSubscription(new subscriptions.EmailSubscription('brian.pfeil@gmail.com'));
 
@@ -53,15 +56,11 @@ export class RemoteDevelopmentStack extends Stack {
   }
 }
 
-// for development, use account/region from cdk cli
-const devEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
+const env = {
+  account: process.env.CDK_DEPLOY_ACCOUNT || process.env.CDK_DEFAULT_ACCOUNT,
+  region: process.env.CDK_DEPLOY_REGION || process.env.CDK_DEFAULT_REGION,
 };
 
 const app = new App();
-
-new RemoteDevelopmentStack(app, 'remote-development-stack', { env: devEnv });
-// new RemoteDevelopmentStack(app, 'my-stack-prod', { env: prodEnv });
-
+new RemoteDevelopmentStack(app, 'remote-development-stack', { env });
 app.synth();

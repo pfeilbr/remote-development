@@ -12,6 +12,9 @@ const project = new AwsCdkTypeScriptApp({
     '@aws-cdk/aws-lambda-python',
     '@aws-cdk/aws-sns',
     '@aws-cdk/aws-sns-subscriptions',
+    '@aws-cdk/aws-apigatewayv2',
+    '@aws-cdk/aws-stepfunctions',
+    '@aws-cdk/aws-stepfunctions-tasks',
   ], /* Which AWS CDK modules (those that start with "@aws-cdk/") this app uses. */
   // deps: [],                          /* Runtime dependencies of this module. */
   // description: undefined,            /* The description is just a string that helps people understand the purpose of the package. */
