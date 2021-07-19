@@ -19,7 +19,7 @@
     },
     {
       "name": "aws-cdk",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "build"
     },
     {
@@ -75,62 +75,62 @@
     },
     {
       "name": "@aws-cdk/assert",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "runtime"
     },
     {
       "name": "@aws-cdk/aws-apigatewayv2",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "runtime"
     },
     {
       "name": "@aws-cdk/aws-events-targets",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "runtime"
     },
     {
       "name": "@aws-cdk/aws-events",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "runtime"
     },
     {
       "name": "@aws-cdk/aws-iam",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "runtime"
     },
     {
       "name": "@aws-cdk/aws-lambda-python",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "runtime"
     },
     {
       "name": "@aws-cdk/aws-lambda",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "runtime"
     },
     {
       "name": "@aws-cdk/aws-sns-subscriptions",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "runtime"
     },
     {
       "name": "@aws-cdk/aws-sns",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "runtime"
     },
     {
       "name": "@aws-cdk/aws-stepfunctions-tasks",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "runtime"
     },
     {
       "name": "@aws-cdk/aws-stepfunctions",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "runtime"
     },
     {
       "name": "@aws-cdk/core",
-      "version": "^1.95.2",
+      "version": "^1.114.0",
       "type": "runtime"
     }
   ],
